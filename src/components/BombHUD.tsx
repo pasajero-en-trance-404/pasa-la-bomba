@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import {
+  explode,
   isSessionOver,
   nextRound,
   passBomb,
@@ -58,10 +59,21 @@ export default function BombHUD() {
     currentPrompt,
     round,
     roundsTotal,
+    explodeAt,
   } = useGameStore();
   const router = useRouter();
 
   const holder = players[turnIndex];
+
+  // Explosión confiable al acabarse el tiempo, sin depender del loop del Canvas.
+  useEffect(() => {
+    if (phase !== "passing" || !explodeAt) return;
+    const delay = Math.max(0, explodeAt - Date.now());
+    const id = window.setTimeout(() => {
+      explode();
+    }, delay);
+    return () => window.clearTimeout(id);
+  }, [phase, explodeAt]);
 
   const continueAfterExplosion = () => {
     play("next");
