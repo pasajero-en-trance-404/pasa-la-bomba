@@ -136,7 +136,7 @@ export default function SetupPage() {
                       : "border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10"
                   }`}
                 >
-                  {r === 0 ? "∞" : r}
+                  {r}
                 </motion.button>
               );
             })}

@@ -22,7 +22,7 @@ interface StoreState {
   players: Player[];
   categories: CategoryId[];
   difficulty: Difficulty;
-  roundsTotal: number; // 0 = infinitas
+  roundsTotal: number; // cantidad total de bombas de la sesión
   playing: boolean;
   phase: Phase;
   turnIndex: number;
@@ -331,9 +331,12 @@ export function nextRound() {
   emit();
 }
 
-/** Sigue la fiesta sin límite de rondas (desde /result). */
+/** Sigue la fiesta sumando 5 bombas más (desde /result). */
 export function continuePlaying() {
-  state = { ...state, roundsTotal: 0 };
+  state = {
+    ...state,
+    roundsTotal: Math.max(state.roundsTotal, state.round) + 5,
+  };
   emit();
 }
 

@@ -90,7 +90,7 @@ export default function BombHUD() {
       <div className="flex items-center justify-between">
         <div className="rounded-full border border-white/10 bg-black/50 px-4 py-1.5 text-xs font-semibold text-orange-100 backdrop-blur">
           💣 Bomba {round}
-          {roundsTotal > 0 ? ` / ${roundsTotal}` : ""}
+          {` / ${roundsTotal}`}
         </div>
         <button
           onClick={() => {
